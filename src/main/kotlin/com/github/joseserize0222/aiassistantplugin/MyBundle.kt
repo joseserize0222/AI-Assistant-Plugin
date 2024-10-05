@@ -1,4 +1,4 @@
-package org.jetbrains.plugins.template
+package com.github.joseserize0222.aiassistantplugin
 
 import com.intellij.DynamicBundle
 import org.jetbrains.annotations.NonNls

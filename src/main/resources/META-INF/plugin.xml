@@ -1,18 +1,19 @@
 <!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
-    <id>com.github.joseserize0222.aiassistantplugin</id>
-    <name>AI-Assistant-Plugin</name>
+    <id>aiassistant.plugin.application</id>
+    <name>Kotlin Assistant</name>
     <vendor>joseserize0222</vendor>
 
     <depends>com.intellij.modules.platform</depends>
 
-    <resource-bundle>messages.MyBundle</resource-bundle>
+    <depends>org.jetbrains.kotlin</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-        <toolWindow factoryClass="com.github.joseserize0222.aiassistantplugin.toolWindow.MyToolWindowFactory" id="MyToolWindow"/>
+        <toolWindow doNotActivateOnStart="false"
+                    id="Cognifire File Statistics"
+                    factoryClass="com.github.joseserize0222.aiassistantplugin.toolWindow.StatsToolWindowFactory"
+                    anchor="right"
+                    icon = "AllIcons.Toolwindows.ToolWindowJsonPath"
+        />
     </extensions>
-
-    <applicationListeners>
-        <listener class="com.github.joseserize0222.aiassistantplugin.listeners.MyApplicationActivationListener" topic="com.intellij.openapi.application.ApplicationActivationListener"/>
-    </applicationListeners>
 </idea-plugin>

@@ -4,6 +4,7 @@ package com.github.joseserize0222.aiassistantplugin.actions
 import com.github.joseserize0222.aiassistantplugin.services.KtorClientService
 import com.github.joseserize0222.aiassistantplugin.utils.Token
 import com.github.joseserize0222.aiassistantplugin.utils.getToken
+import com.intellij.openapi.actionSystem.ActionUpdateThread
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.CommonDataKeys
@@ -59,6 +60,10 @@ class ExplainMethodAction : AnAction() {
         if (PsiTreeUtil.getParentOfType(elementAtCaret, KtNamedFunction::class.java) != null) {
             presentation.isEnabledAndVisible = true
         }
+    }
+
+    override fun getActionUpdateThread(): ActionUpdateThread {
+        return ActionUpdateThread.BGT
     }
 }
 

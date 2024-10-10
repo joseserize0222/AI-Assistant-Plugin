@@ -74,6 +74,8 @@ jobs:
       # Build plugin
       - name: Build plugin
         run: ./gradlew buildPlugin
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
 
       # Prepare plugin archive content for creating artifact
       - name: Prepare Plugin Artifact

@@ -9,7 +9,7 @@ kotlin = "2.0.20"
 kover = "0.8.3"
 qodana = "2024.2.3"
 ktor = "2.3.12"
-logback = "1.5.8"
+logback = "1.5.9"
 serialization = "1.7.1"
 
 [libraries]

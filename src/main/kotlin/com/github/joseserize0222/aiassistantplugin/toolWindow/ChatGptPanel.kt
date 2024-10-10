@@ -8,6 +8,7 @@ import com.intellij.openapi.components.service
 import com.intellij.openapi.project.Project
 import com.intellij.ui.components.JBPanel
 import com.intellij.ui.components.JBScrollPane
+import com.intellij.util.ui.JBUI
 import java.awt.BorderLayout
 import java.awt.Font
 import javax.swing.*
@@ -25,6 +26,7 @@ class ChatGptPanel(project: Project) : ChatGptListener {
             lineWrap = true
             wrapStyleWord = true
             isEditable = false
+            margin = JBUI.insets(10)
         }
 
         val scrollPane = JBScrollPane(textArea)

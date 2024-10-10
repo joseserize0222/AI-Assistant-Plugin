@@ -27,6 +27,10 @@ class ProjectStatsPanel(project: Project) : FileStatsListener {
             setOneLineMode(false)
             setAutoscrolls(true)
             text = "Please select a File for showing statistics."
+            this.addSettingsProvider { editor ->
+                val contentComponent = editor.contentComponent
+                contentComponent.border = BorderFactory.createEmptyBorder(10, 10, 10, 10)
+            }
         }
         val scrollPane = JBScrollPane(editorField)
         panel.add(scrollPane, BorderLayout.CENTER)

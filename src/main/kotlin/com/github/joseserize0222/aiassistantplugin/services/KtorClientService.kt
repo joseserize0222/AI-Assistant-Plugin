@@ -3,7 +3,6 @@ package com.github.joseserize0222.aiassistantplugin.services
 import com.github.joseserize0222.aiassistantplugin.utils.*
 import com.intellij.openapi.Disposable
 import com.intellij.openapi.components.Service
-import com.intellij.openapi.project.Project
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.engine.cio.*
@@ -16,7 +15,7 @@ import kotlinx.coroutines.*
 import kotlinx.serialization.json.Json
 
 @Service(Service.Level.PROJECT)
-class KtorClientService(private val project: Project) : Disposable {
+class KtorClientService : Disposable {
     private val scope =
         CoroutineScope(Dispatchers.IO + SupervisorJob() + CoroutineExceptionHandler { _ , error -> throw error })
     private val client = HttpClient(CIO) {

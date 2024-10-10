@@ -3,6 +3,7 @@ package com.github.joseserize0222.aiassistantplugin.actions
 
 import com.github.joseserize0222.aiassistantplugin.services.KtorClientService
 import com.github.joseserize0222.aiassistantplugin.utils.Token
+import com.github.joseserize0222.aiassistantplugin.utils.getToken
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.CommonDataKeys
@@ -16,6 +17,14 @@ import org.jetbrains.kotlin.psi.KtNamedFunction
 class ExplainMethodAction : AnAction() {
 
     private var selectedFunctionCode: String? = null
+    private val token: Token
+    init {
+        token = try {
+            getToken()
+        } catch (e: Error) {
+            Token("Your API_KEY is invalid")
+        }
+    }
 
     override fun actionPerformed(event: AnActionEvent) {
         val project = event.project ?: return
@@ -36,7 +45,7 @@ class ExplainMethodAction : AnAction() {
             if (localFunctionCode != null) {
                 val service = project.service<KtorClientService>()
                 CoroutineScope(Dispatchers.IO).launch {
-                    service.postFunctionToOpenAi(localFunctionCode, Token("Your Api Key here"))
+                    service.postFunctionToOpenAi(localFunctionCode, token)
                 }
             }
         }

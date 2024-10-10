@@ -1,13 +1,11 @@
 package com.github.joseserize0222.aiassistantplugin.toolWindow
+
 import com.github.joseserize0222.aiassistantplugin.services.KtorClientService
 import com.github.joseserize0222.aiassistantplugin.utils.ChatGptListener
 import com.intellij.ide.ui.LafManagerListener
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.components.service
-import com.intellij.openapi.editor.colors.EditorColorsManager
-import com.intellij.openapi.fileTypes.FileTypeManager
 import com.intellij.openapi.project.Project
-import com.intellij.ui.EditorTextField
 import com.intellij.ui.components.JBPanel
 import com.intellij.ui.components.JBScrollPane
 import java.awt.BorderLayout
@@ -16,37 +14,41 @@ import javax.swing.*
 
 class ChatGptPanel(project: Project) : ChatGptListener {
     val content: JComponent
-    private val editorField: EditorTextField
+    private val textArea: JTextArea
+
     init {
         val panel = JBPanel<JBPanel<*>>(BorderLayout())
-        val fileType = FileTypeManager.getInstance().getFileTypeByExtension("kt")
-        editorField = EditorTextField("", project, fileType).apply {
-            isViewer = true
-            font = Font("JetBrains Mono", Font.PLAIN, 12)
-            setOneLineMode(false)
-            setAutoscrolls(true)
+
+        textArea = JTextArea().apply {
             text = "Please select a function to be described"
+            font = Font("JetBrains Mono", Font.PLAIN, 12)
+            lineWrap = true
+            wrapStyleWord = true
+            isEditable = false
         }
-        val scrollPane = JBScrollPane(editorField)
+
+        val scrollPane = JBScrollPane(textArea)
         panel.add(scrollPane, BorderLayout.CENTER)
+
         content = panel
+
         ApplicationManager.getApplication().messageBus.connect().subscribe(
             LafManagerListener.TOPIC, LafManagerListener {
-                updateEditorFieldTheme()
+                updateTextAreaTheme()
             }
         )
         project.service<KtorClientService>().addListener(this)
     }
 
-    private fun updateEditorFieldTheme() {
-        val scheme = EditorColorsManager.getInstance().globalScheme
-        editorField.background = scheme.defaultBackground
-        editorField.foreground = scheme.defaultForeground
+    private fun updateTextAreaTheme() {
+        val scheme = com.intellij.openapi.editor.colors.EditorColorsManager.getInstance().globalScheme
+        textArea.background = scheme.defaultBackground
+        textArea.foreground = scheme.defaultForeground
     }
 
     override fun callback(response: String) {
         SwingUtilities.invokeLater {
-            editorField.text = response
+            textArea.text = response
         }
     }
 }

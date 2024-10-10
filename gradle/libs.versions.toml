@@ -8,7 +8,7 @@ intelliJPlatform = "2.1.0"
 kotlin = "2.0.20"
 kover = "0.8.3"
 qodana = "2024.2.3"
-ktor = "2.3.12"
+ktor = "3.0.0"
 logback = "1.5.8"
 serialization = "1.7.1"
 

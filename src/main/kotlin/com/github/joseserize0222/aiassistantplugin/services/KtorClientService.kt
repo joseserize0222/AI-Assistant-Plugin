@@ -30,7 +30,8 @@ class KtorClientService : Disposable {
 
     fun postFunctionToOpenAi(functionBody: String, token: Token) {
         val request = OpenAIRequest(
-            model = "gpt-3.5-turbo",
+            model = "gpt-3.5-turbo",  // You can change the model as well
+            temperature = 0.7,  // This could be adjusted
             messages = listOf(
                 Message(role = "user", content = "Explain the following Kotlin function and its purpose\n" +
                         "\n" + "\n"

@@ -5,6 +5,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class OpenAIRequest(
     val model: String,
+    val temperature: Double,
     val messages: List<Message>
 )
 

@@ -1,7 +1,6 @@
 package com.github.joseserize0222.aiassistantplugin.toolWindow
-import com.github.joseserize0222.aiassistantplugin.services.FileAnalyzerService
-import com.github.joseserize0222.aiassistantplugin.utils.FileStatsListener
-import com.github.joseserize0222.aiassistantplugin.utils.KotlinFileStats
+import com.github.joseserize0222.aiassistantplugin.services.KtorClientService
+import com.github.joseserize0222.aiassistantplugin.utils.ChatGptListener
 import com.intellij.ide.ui.LafManagerListener
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.components.service
@@ -15,7 +14,7 @@ import java.awt.BorderLayout
 import java.awt.Font
 import javax.swing.*
 
-class ProjectStatsPanel(project: Project) : FileStatsListener {
+class ChatGptPanel(project: Project) : ChatGptListener {
     val content: JComponent
     private val editorField: EditorTextField
     init {
@@ -26,7 +25,7 @@ class ProjectStatsPanel(project: Project) : FileStatsListener {
             font = Font("JetBrains Mono", Font.PLAIN, 12)
             setOneLineMode(false)
             setAutoscrolls(true)
-            text = "Please select a File for showing statistics."
+            text = "Please select a function to be described"
         }
         val scrollPane = JBScrollPane(editorField)
         panel.add(scrollPane, BorderLayout.CENTER)
@@ -36,7 +35,7 @@ class ProjectStatsPanel(project: Project) : FileStatsListener {
                 updateEditorFieldTheme()
             }
         )
-        project.service<FileAnalyzerService>().addListener(this)
+        project.service<KtorClientService>().addListener(this)
     }
 
     private fun updateEditorFieldTheme() {
@@ -45,17 +44,9 @@ class ProjectStatsPanel(project: Project) : FileStatsListener {
         editorField.foreground = scheme.defaultForeground
     }
 
-    override fun callback(allStats: KotlinFileStats) {
-        val stats = buildString {
-            append("Kotlin File Stats for ${allStats.fileName}\n\n")
-            append("All Lines: ${allStats.totalLines}\n")
-            append("TODO Lines: ${allStats.todoLines}\n")
-            append("Longest Function: ${allStats.getFunctionName()} with ${allStats.getFunctionLines()} ${ if (allStats.getFunctionLines() == 1) "line" else "lines"}\n")
-            append("Body Expression:\n")
-            append(allStats.getFunctionContent())
-        }
+    override fun callback(response: String) {
         SwingUtilities.invokeLater {
-            editorField.text = stats
+            editorField.text = response
         }
     }
 }

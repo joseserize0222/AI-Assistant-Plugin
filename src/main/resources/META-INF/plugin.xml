@@ -10,10 +10,29 @@
 
     <extensions defaultExtensionNs="com.intellij">
         <toolWindow doNotActivateOnStart="false"
-                    id="Cognifire File Statistics"
+                    id="Kotlin File Statistics"
                     factoryClass="com.github.joseserize0222.aiassistantplugin.toolWindow.StatsToolWindowFactory"
                     anchor="right"
                     icon = "AllIcons.Toolwindows.ToolWindowJsonPath"
         />
     </extensions>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <toolWindow doNotActivateOnStart="false"
+                    id="ChatGpt Assistant"
+                    factoryClass="com.github.joseserize0222.aiassistantplugin.toolWindow.ChatGptToolWindowFactory"
+                    anchor="right"
+                    icon = "AllIcons.Toolwindows.WebToolWindow"
+        />
+    </extensions>
+
+    <actions>
+        <!-- Add your action here -->
+        <action id="DescribeMethod"
+                class="com.github.joseserize0222.aiassistantplugin.actions.ExplainMethodAction"
+                text="Describe Method"
+                description="Describe the selected method">
+            <add-to-group group-id="EditorPopupMenu" anchor="last"/>
+        </action>
+    </actions>
 </idea-plugin>

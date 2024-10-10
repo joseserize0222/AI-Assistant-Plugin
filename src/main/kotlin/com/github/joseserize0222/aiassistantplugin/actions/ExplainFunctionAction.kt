@@ -17,13 +17,10 @@ import org.jetbrains.kotlin.psi.KtNamedFunction
 class ExplainMethodAction : AnAction() {
 
     private var selectedFunctionCode: String? = null
-    private val token: Token
-    init {
-        token = try {
-            getToken()
-        } catch (e: Error) {
-            Token("Your API_KEY is invalid")
-        }
+    private val token: Token = try {
+        getToken()
+    } catch (e: Error) {
+        Token("INSERT YOUR API KEY HERE")
     }
 
     override fun actionPerformed(event: AnActionEvent) {

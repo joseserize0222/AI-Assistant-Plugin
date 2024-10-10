@@ -2,7 +2,10 @@
 <idea-plugin>
     <id>aiassistant.plugin.application</id>
     <name>Kotlin Assistant</name>
-    <vendor>joseserize0222</vendor>
+    <vendor> email="joseserize0222@gmail.com" url="https://github.com/joseserize0222"</vendor>
+    <description><![CDATA[
+        A simple plugin to gather and display statistics about Kotlin files, such as total line count, lines with TODO, and the longest function. And also provides the option to describe selected methods through ChatGPT
+    ]]></description>
 
     <depends>com.intellij.modules.platform</depends>
 

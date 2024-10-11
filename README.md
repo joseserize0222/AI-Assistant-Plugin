@@ -1,6 +1,5 @@
 
-### ![about](https://github.com/joseserize0222/AI-Assistant-Plugin/blob/main/src/main/resources/META-INF/pluginIcon.svg) 
-AI-Assistant IntelliJ IDEA Plugin
+### ![about](https://github.com/joseserize0222/AI-Assistant-Plugin/blob/main/src/main/resources/META-INF/pluginIcon.svg) AI-Assistant IntelliJ IDEA Plugin
 
 
 

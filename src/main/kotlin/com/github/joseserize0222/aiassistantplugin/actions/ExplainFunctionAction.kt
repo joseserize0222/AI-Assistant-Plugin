@@ -20,7 +20,7 @@ class ExplainMethodAction : AnAction() {
     private var selectedFunctionCode: String? = null
     private val token: Token = try {
         getToken()
-    } catch (e: Error) {
+    } catch (e: IllegalStateException) {
         Token("INSERT YOUR API KEY HERE")
     }
 

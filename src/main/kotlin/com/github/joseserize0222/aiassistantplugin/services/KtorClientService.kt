@@ -60,8 +60,8 @@ class KtorClientService : Disposable {
     }
 
 
-    fun addListener(new_listener: ChatGptListener) {
-        listener = new_listener
+    fun addListener(newListener: ChatGptListener) {
+        listener = newListener
     }
 
     private fun update(response: String) {

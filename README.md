@@ -37,8 +37,6 @@ The **AI-Assistant Plugin** enhances your development workflow by providing real
 4. **Run the plugin**:
   - Execute:  
     `./gradlew runIde`
-5. **Install the Plugin**:
-  - Load the generated `.zip` file in IntelliJ's Plugin settings by navigating to **Settings > Plugins > Install Plugin from Disk**.
 
 ### Installation via Latest Release:
 1. Go to the **Releases** section of the repository.

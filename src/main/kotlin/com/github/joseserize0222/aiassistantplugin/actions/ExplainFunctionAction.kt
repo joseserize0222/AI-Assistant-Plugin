@@ -8,7 +8,7 @@ import com.intellij.openapi.actionSystem.ActionUpdateThread
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.CommonDataKeys
-import com.intellij.openapi.application.ApplicationManager
+import com.intellij.openapi.application.ReadAction
 import com.intellij.openapi.components.service
 import com.intellij.psi.util.PsiTreeUtil
 import kotlinx.coroutines.CoroutineScope
@@ -27,45 +27,35 @@ class ExplainMethodAction : AnAction() {
 
     override fun actionPerformed(event: AnActionEvent) {
         val project = event.project ?: return
-        val editor = event.getData(CommonDataKeys.EDITOR)
-        val psiFile = event.getData(CommonDataKeys.PSI_FILE)
+        val functionElement = getSelectedFunction(event) ?: return
 
-        if (editor == null || psiFile == null) {
-            return
-        }
-        ApplicationManager.getApplication().runReadAction {
-            val elementAtCaret = psiFile.findElementAt(editor.caretModel.offset)
-            val functionElement = PsiTreeUtil.getParentOfType(elementAtCaret, KtNamedFunction::class.java)
-
-            if (functionElement != null) {
-                selectedFunctionCode = functionElement.text
-                val localFunctionCode = selectedFunctionCode
-                if (localFunctionCode != null) {
-                    val service = project.service<KtorClientService>()
-                    CoroutineScope(Dispatchers.IO).launch {
-                        service.postFunctionToOpenAi(localFunctionCode, token)
-                    }
-                }
+        selectedFunctionCode = functionElement.text
+        val localFunctionCode = selectedFunctionCode
+        if (localFunctionCode != null) {
+            val service = project.service<KtorClientService>()
+            CoroutineScope(Dispatchers.IO).launch {
+                service.postFunctionToOpenAi(localFunctionCode, token)
             }
         }
     }
 
     override fun update(event: AnActionEvent) {
         val presentation = event.presentation
-        presentation.isEnabledAndVisible = false
-
-        val editor = event.getData(CommonDataKeys.EDITOR) ?: return
-        val psiFile = event.getData(CommonDataKeys.PSI_FILE) ?: return
-            val elementAtCaret = psiFile.findElementAt(editor.caretModel.offset)
-        ApplicationManager.getApplication().runReadAction {
-            if (PsiTreeUtil.getParentOfType(elementAtCaret, KtNamedFunction::class.java) != null) {
-                presentation.isEnabledAndVisible = true
-            }
-        }
+        presentation.isEnabledAndVisible = getSelectedFunction(event) != null
     }
 
     override fun getActionUpdateThread(): ActionUpdateThread {
         return ActionUpdateThread.BGT
+    }
+
+    private fun getSelectedFunction(event: AnActionEvent): KtNamedFunction? {
+        val editor = event.getData(CommonDataKeys.EDITOR) ?: return null
+        val psiFile = event.getData(CommonDataKeys.PSI_FILE) ?: return null
+
+        return ReadAction.compute<KtNamedFunction?, Throwable> {
+            val elementAtCaret = psiFile.findElementAt(editor.caretModel.offset)
+            PsiTreeUtil.getParentOfType(elementAtCaret, KtNamedFunction::class.java)
+        }
     }
 }
 

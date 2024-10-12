@@ -4,6 +4,7 @@ import com.github.joseserize0222.aiassistantplugin.utils.FileStatsListener
 import com.github.joseserize0222.aiassistantplugin.utils.KotlinFileStats
 import com.intellij.openapi.Disposable
 import com.intellij.openapi.application.ApplicationManager
+import com.intellij.openapi.application.ReadAction
 import com.intellij.openapi.components.Service
 import com.intellij.openapi.editor.EditorFactory
 import com.intellij.openapi.editor.event.DocumentEvent
@@ -73,16 +74,14 @@ class FileAnalyzerService(private val project: Project) : Disposable {
     }
 
     fun updateStats() {
-        ApplicationManager.getApplication().runReadAction {
+        ReadAction.run<Throwable> {
             if (!project.isDisposed) {
-                val virtualFile = FileEditorManager.getInstance(project).selectedFiles.firstOrNull() ?: return@runReadAction
+                val virtualFile = FileEditorManager.getInstance(project).selectedFiles.firstOrNull() ?: return@run
                 val allStats = calculateStats(virtualFile)
                 listener?.callback(allStats)
             }
         }
     }
 
-    override fun dispose() {
-        listener = null
-    }
+    override fun dispose() {}
 }

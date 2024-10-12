@@ -17,7 +17,13 @@ import kotlinx.serialization.json.Json
 @Service(Service.Level.PROJECT)
 class KtorClientService : Disposable {
     private val scope =
-        CoroutineScope(Dispatchers.IO + SupervisorJob() + CoroutineExceptionHandler { _ , error -> throw error })
+        CoroutineScope(
+            Dispatchers.IO +
+                    SupervisorJob() +
+                    CoroutineExceptionHandler { _ , error ->
+                        throw error
+                    }
+        )
     private val client = HttpClient(CIO) {
         install(ContentNegotiation) {
             json(Json {

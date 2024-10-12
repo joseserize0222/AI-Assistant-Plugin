@@ -47,7 +47,7 @@ The **AI-Assistant Plugin** enhances your development workflow by providing real
 
 To use the **AI-Powered Function Description** feature, you'll need an API key from OpenAI. Follow these steps:
 
-1. **Create an API key** on OpenAI's platform:
+1. **Create an OpenAI Platform account**:
   - Visit the [OpenAI API Keys Page](https://platform.openai.com/account/api-keys) and generate a new API key.
 
 2. **Set the `OPENAI_API_KEY` environment variable** on your system:

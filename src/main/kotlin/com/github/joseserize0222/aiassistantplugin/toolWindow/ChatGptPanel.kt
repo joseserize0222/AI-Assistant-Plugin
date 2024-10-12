@@ -3,6 +3,7 @@ package com.github.joseserize0222.aiassistantplugin.toolWindow
 import com.github.joseserize0222.aiassistantplugin.services.KtorClientService
 import com.github.joseserize0222.aiassistantplugin.utils.ChatGptListener
 import com.intellij.ide.ui.LafManagerListener
+import com.intellij.openapi.Disposable
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.components.service
 import com.intellij.openapi.project.Project
@@ -13,7 +14,7 @@ import java.awt.BorderLayout
 import java.awt.Font
 import javax.swing.*
 
-class ChatGptPanel(project: Project) : ChatGptListener {
+class ChatGptPanel(project: Project) : ChatGptListener, Disposable {
     val content: JComponent
     private val textArea: JTextArea
 
@@ -34,7 +35,7 @@ class ChatGptPanel(project: Project) : ChatGptListener {
 
         content = panel
 
-        ApplicationManager.getApplication().messageBus.connect().subscribe(
+        ApplicationManager.getApplication().messageBus.connect(this).subscribe(
             LafManagerListener.TOPIC, LafManagerListener {
                 updateTextAreaTheme()
             }
@@ -53,4 +54,6 @@ class ChatGptPanel(project: Project) : ChatGptListener {
             textArea.text = response
         }
     }
+
+    override fun dispose() {}
 }

@@ -50,15 +50,19 @@ class FileAnalyzerService(private val project: Project) : Disposable {
         EditorFactory.getInstance().eventMulticaster.addDocumentListener(object : DocumentListener {
             override fun documentChanged(event: DocumentEvent) {
                 ApplicationManager.getApplication().invokeLater {
-                    PsiDocumentManager.getInstance(project).commitDocument(event.document)
-                    updateStats()
+                    if (!project.isDisposed) {
+                        PsiDocumentManager.getInstance(project).commitDocument(event.document)
+                        updateStats()
+                    }
                 }
             }
         }, this)
         project.messageBus.connect(this).subscribe(FileEditorManagerListener.FILE_EDITOR_MANAGER, object :
             FileEditorManagerListener {
             override fun selectionChanged(event: FileEditorManagerEvent) {
-                updateStats()
+                if (!project.isDisposed) {
+                    updateStats()
+                }
             }
         })
     }
@@ -70,11 +74,15 @@ class FileAnalyzerService(private val project: Project) : Disposable {
 
     fun updateStats() {
         ApplicationManager.getApplication().runReadAction {
-            val virtualFile = FileEditorManager.getInstance(project).selectedFiles.firstOrNull() ?: return@runReadAction
-            val allStats = calculateStats(virtualFile)
-            listener?.callback(allStats)
+            if (!project.isDisposed) {
+                val virtualFile = FileEditorManager.getInstance(project).selectedFiles.firstOrNull() ?: return@runReadAction
+                val allStats = calculateStats(virtualFile)
+                listener?.callback(allStats)
+            }
         }
     }
 
-    override fun dispose() {}
+    override fun dispose() {
+        listener = null
+    }
 }

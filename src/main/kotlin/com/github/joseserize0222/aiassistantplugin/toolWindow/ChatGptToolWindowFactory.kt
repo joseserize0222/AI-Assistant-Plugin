@@ -13,6 +13,7 @@ class ChatGptToolWindowFactory: ToolWindowFactory, DumbAware {
         val chatGptPanel = ChatGptPanel(project)
         val contentFactory = ContentFactory.getInstance()
         val content = contentFactory.createContent(chatGptPanel.content, "", false)
+        content.setDisposer(chatGptPanel)
         toolWindow.contentManager.addContent(content)
     }
 }

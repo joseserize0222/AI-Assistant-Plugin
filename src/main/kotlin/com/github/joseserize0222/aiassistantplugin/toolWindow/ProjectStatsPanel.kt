@@ -3,6 +3,7 @@ import com.github.joseserize0222.aiassistantplugin.services.FileAnalyzerService
 import com.github.joseserize0222.aiassistantplugin.utils.FileStatsListener
 import com.github.joseserize0222.aiassistantplugin.utils.KotlinFileStats
 import com.intellij.ide.ui.LafManagerListener
+import com.intellij.openapi.Disposable
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.components.service
 import com.intellij.openapi.editor.colors.EditorColorsManager
@@ -15,7 +16,7 @@ import java.awt.BorderLayout
 import java.awt.Font
 import javax.swing.*
 
-class ProjectStatsPanel(project: Project) : FileStatsListener {
+class ProjectStatsPanel(project: Project) : FileStatsListener, Disposable {
     val content: JComponent
     private val editorField: EditorTextField
     init {
@@ -35,7 +36,7 @@ class ProjectStatsPanel(project: Project) : FileStatsListener {
         val scrollPane = JBScrollPane(editorField)
         panel.add(scrollPane, BorderLayout.CENTER)
         content = panel
-        ApplicationManager.getApplication().messageBus.connect().subscribe(
+        ApplicationManager.getApplication().messageBus.connect(this).subscribe(
             LafManagerListener.TOPIC, LafManagerListener {
                 updateEditorFieldTheme()
             }
@@ -62,4 +63,6 @@ class ProjectStatsPanel(project: Project) : FileStatsListener {
             editorField.text = stats
         }
     }
+
+    override fun dispose() {}
 }

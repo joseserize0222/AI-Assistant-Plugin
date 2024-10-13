@@ -3,7 +3,6 @@
 
 
 
-
 The **AI-Assistant Plugin** enhances your development workflow by providing real-time Kotlin code statistics and AI-powered insights. It not only helps analyze your Kotlin files but also allows you to send functions directly to OpenAI's GPT model for a detailed explanation of their purpose.
 
 ---
@@ -28,7 +27,6 @@ The **AI-Assistant Plugin** enhances your development workflow by providing real
 
 ## Installation
 
-### Manual Installation:
 1. **Install Git** if it is not installed on your system.
 2. **Clone the repository** using SSH:  
    `git clone git@github.com:joseserize0222/AI-Assistant-Plugin.git`

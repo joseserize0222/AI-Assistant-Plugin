@@ -10,7 +10,7 @@ kover = "0.8.3"
 qodana = "2024.2.3"
 ktor = "3.0.0"
 logback = "1.5.8"
-serialization = "1.7.1"
+serialization = "1.7.3"
 
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }

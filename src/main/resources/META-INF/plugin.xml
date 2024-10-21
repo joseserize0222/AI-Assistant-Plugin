@@ -30,7 +30,6 @@
     </extensions>
 
     <actions>
-
         <action id="DescribeMethod"
                 class="com.github.joseserize0222.aiassistantplugin.actions.ExplainMethodAction"
                 text="Describe Method"

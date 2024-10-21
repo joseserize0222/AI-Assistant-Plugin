@@ -16,13 +16,14 @@ The **AI-Assistant Plugin** enhances your development workflow by providing real
   - **Longest Function**: Identifies the longest function and provides its content and name.
 - **Real-time Updates**: The statistics update as you make changes to the file or switch between files.
 
-![Real-time updates](./src/data/Editing%20the%20file%20audio%20removed.gif)
-![Switch files](./src/data/Switching%20files%20and%20resizing%20the%20windows.gif)
+![Real-time updates](./src/data/Editing%20the%20file%20with%20Kotlin%20Stats.gif)
+![Switch files](./src/data/Switching%20Files.gif)
 
 ### 2. **AI-Powered Function Description**
-- **Explain Method Action**: Select a Kotlin function in the editor and click the action button to get an AI-generated description of its purpose using OpenAI's GPT model.
+- **Explain Method Action**: Select a Kotlin function in the editor and right click and then click the Describe Method action button to get an AI-generated description of its purpose using OpenAI's GPT model.
 - **Real-time Feedback**: View the response directly within a tool window inside the IDE.
 
+![Function Description](./src/data/Asking%20ChatGpt.gif)
 ---
 
 ## Installation
@@ -79,7 +80,8 @@ Alternatively, you can set the API key directly in the code:
    ```kotlin
    val token: Token = Token("INSERT YOUR API KEY HERE")
    ```
-
+### Changing the model
+- By default the model used is gpt-3.5-turbo you can change that in the KtorClientService.kt line 39
 ---
 
 ## Plugin Architecture

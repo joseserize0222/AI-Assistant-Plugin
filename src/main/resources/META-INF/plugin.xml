@@ -1,7 +1,7 @@
 <!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
     <id>aiassistant.plugin.application</id>
-    <name>Kotlin Assistant</name>
+    <name>Kotlin AI Assistant</name>
     <vendor> email="joseserize0222@gmail.com" url="https://github.com/joseserize0222"</vendor>
     <description><![CDATA[
         A simple plugin to gather and display statistics about Kotlin files, such as total line count, lines with TODO, and the longest function. And also provides the option to describe selected methods through ChatGPT
@@ -30,7 +30,6 @@
     </extensions>
 
     <actions>
-        <!-- Add your action here -->
         <action id="DescribeMethod"
                 class="com.github.joseserize0222.aiassistantplugin.actions.ExplainMethodAction"
                 text="Describe Method"

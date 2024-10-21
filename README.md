@@ -17,6 +17,8 @@ The **AI-Assistant Plugin** enhances your development workflow by providing real
 - **Real-time Updates**: The statistics update as you make changes to the file or switch between files.
 
 ![Real-time updates](./src/data/Editing%20the%20file%20with%20Kotlin%20Stats.gif)
+
+
 ![Switch files](./src/data/Switching%20Files.gif)
 
 ### 2. **AI-Powered Function Description**
